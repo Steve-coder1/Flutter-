@@ -1,13 +1,16 @@
 name: Flutter APK Build
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Clone repository
         uses: actions/checkout@v3
 
       - name: Set up Flutter
@@ -15,13 +18,13 @@ jobs:
         with:
           flutter-version: 'stable'
 
-      - name: Install dependencies
+      - name: Get dependencies
         run: flutter pub get
 
       - name: Build APK
         run: flutter build apk --release
 
-      - name: Upload APK
+      - name: Upload Artifact (APK)
         uses: actions/upload-artifact@v3
         with:
           name: hello-world-apk
